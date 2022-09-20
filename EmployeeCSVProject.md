@@ -8,7 +8,7 @@
 
 ## Phase 1 – Initial Reading and Cleaning
 
-- Create a new project and write code to read data from an Employee CSV file.
+- Create a new project and write code to read data from an Employee CSV file.  
 - As it is read in, add each record read to a new object of a suitable class and then add those objects to a collection.
 - Any corrupt or duplicated data should be added to a separate collection for further analysis.
 - Write tests to ensure data is being managed correctly.
