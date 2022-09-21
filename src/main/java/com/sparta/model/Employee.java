@@ -1,5 +1,6 @@
 package com.sparta.model;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Employee {
@@ -12,6 +13,7 @@ public class Employee {
     private char gender;
     private String mail;
     private java.util.Date dob;
+
     private java.util.Date employmentDate;
     private int salary;
 
@@ -39,6 +41,30 @@ public class Employee {
 
     public String getLastName() { return this.lastName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
+
+    public char getMiddleInitial() { return middleInitial; }
+
+    public void setMiddleInitial(char middleInitial) { this.middleInitial = middleInitial; }
+
+    public char getGender() { return gender; }
+
+    public void setGender(char gender) { this.gender = gender; }
+
+    public String getMail() { return mail; }
+
+    public void setMail(String mail) { this.mail = mail; }
+
+    public Date getDob() { return dob; }
+
+    public void setDob(Date dob) { this.dob = dob; }
+
+    public Date getEmploymentDate() { return employmentDate; }
+
+    public void setEmploymentDate(Date employmentDate) { this.employmentDate = employmentDate; }
+
+    public int getSalary() { return salary; }
+
+    public void setSalary(int salary) { this.salary = salary; }
 
 //  don't need this probably
 

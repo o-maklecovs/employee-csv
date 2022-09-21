@@ -9,7 +9,7 @@ public class Starter {
 
         // DisplayManager
         DisplayManager display = new DisplayManager();
-        RemoveDup.duplicates((Reader.readNIO("src/main/resources/EmployeeRecords1.csv")));
+        RemoveDup.duplicates(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
       //  display.printResultsFromList(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
 
     }
