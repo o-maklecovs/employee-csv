@@ -20,7 +20,6 @@ public class Reader {
             boolean flag = true;
             for (Object line : Files.lines(Path.of(fname)).toArray()) {
                 if (!flag) {
-                    System.out.println(line);
                     employees.add(CreateEmployee.createEmp((String) line));
                 }
                 else {flag = false; logger.trace("skipping the heading line of the csv file");}

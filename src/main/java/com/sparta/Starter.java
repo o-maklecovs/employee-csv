@@ -1,10 +1,15 @@
 package com.sparta;
 
+import com.sparta.view.DisplayManager;
+
 public class Starter {
 
     public static void start() {
-        // Starter class for controller/logger
-        Reader.readNIO("src/main/resources/EmployeeRecords1.csv");
+
+        // DisplayManager
+        DisplayManager display = new DisplayManager();
+        display.printResultsFromList(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
+
     }
 
 }
