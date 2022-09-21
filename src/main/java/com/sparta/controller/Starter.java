@@ -1,5 +1,6 @@
 package com.sparta.controller;
 
+import com.sparta.model.*;
 import com.sparta.view.DisplayManager;
 
 public class Starter {
