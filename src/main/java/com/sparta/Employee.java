@@ -1,5 +1,7 @@
 package com.sparta;
 
+import java.util.Objects;
+
 public class Employee {
 
     private int employeeID;
@@ -39,8 +41,20 @@ public class Employee {
     public void setLastName(String lastName) { this.lastName = lastName; }
 
 //  don't need this probably
-//    public boolean equals(Employee o) {
-//        if (o == this) return true;
-//        return this.employeeID == o.getEmployeeID();
-//    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return employeeID == employee.employeeID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(employeeID, prefix, firstName, middleInitial, lastName, gender, mail, dob, employmentDate, salary);
+    }
+
+
 }
