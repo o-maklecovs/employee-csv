@@ -2,8 +2,11 @@ package com.sparta.model;
 
 import com.sparta.Employee;
 
-import java.sql.*;
+import java.io.IOException;
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.List;
+import java.sql.*;
 
 // must implement Db interface
 public class MySql {
@@ -18,11 +21,25 @@ public class MySql {
         this.password = password;
     }
 
+    private void loadCreds() {
+        Properties props = new Properties();
+        try {
+            props.load(new FileReader("dbcreds.properties"));
+            this.url = props.getProperty("url");
+            this.username = props.getProperty("username");
+            this.password = props.getProperty("password");
+        } catch (IOException e) {
+            // log
+            e.printStackTrace();
+        }
+    }
+
 //    public void insertAll(List<Employee> employees) { }
 
 //    public Employee getEmployee(int id) { }
 
     public void getAll() {
+        this.loadCreds();
         try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password)) {
             PreparedStatement query = conn.prepareStatement("SELECT * FROM actor");
             ResultSet res = query.executeQuery();
