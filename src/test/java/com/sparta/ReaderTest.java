@@ -1,8 +1,7 @@
 package com.sparta;
 
+import com.sparta.controller.Reader;
 import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ReaderTest {
 

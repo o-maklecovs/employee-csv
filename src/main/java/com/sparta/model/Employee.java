@@ -1,4 +1,4 @@
-package com.sparta;
+package com.sparta.model;
 
 public class Employee {
 

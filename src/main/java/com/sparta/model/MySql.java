@@ -1,6 +1,6 @@
 package com.sparta.model;
 
-import com.sparta.Employee;
+import com.sparta.model.Employee;
 
 import java.io.IOException;
 import java.io.FileReader;

@@ -1,10 +1,9 @@
 package com.sparta.view;
 
-import com.sparta.Employee;
+import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
 import java.util.*;
 
 public class DisplayManager {
