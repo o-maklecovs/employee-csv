@@ -14,19 +14,20 @@ public class Reader {
     public static Logger logger= LogManager.getLogger(Starter.class);
 
     public static List<Employee> readNIO(String fname) {
+        logger.trace("starting a readNIO method");
         List<Employee> employees = new ArrayList<>();
         try {
             boolean flag = true;
             for (Object line : Files.lines(Path.of(fname)).toArray()) {
                 if (!flag) {
-                    System.out.println(line);
                     employees.add(CreateEmployee.createEmp((String) line));
                 }
-                else flag = false;
+                else {flag = false; logger.trace("skipping the heading line of the csv file");}
             }
-            for (Employee e : employees) System.out.println(e.getFirstName() + " " + e.getLastName());
+            //for (Employee e : employees) System.out.println(e.getFirstName() + " " + e.getLastName());
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Error in iterating over CSV file: ");
+            logger.error(e.getMessage());
         }
         return employees;
     }
