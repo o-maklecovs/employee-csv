@@ -12,6 +12,8 @@ public  class CreateEmployee {
     public static Logger logger= LogManager.getLogger(Starter.class);
 
     public  static Employee createEmp(String line){
+        boolean validData=true;
+
         logger.trace("starting a create Emp method");
         // Split line and create Employee object
         String[] arr= line.split(",");
@@ -25,7 +27,7 @@ public  class CreateEmployee {
             id = Integer.parseInt(arr[0]);
             salary = Integer.parseInt(arr[9]);
         }
-        catch (Exception e) {logger.error("Could not parse to int in array: "+ Arrays.toString(arr));}
+        catch (Exception e) {logger.error("Could not parse to int in array: "+ Arrays.toString(arr)); validData=false;}
 
         //Strings
         String prefix = arr[1];
@@ -42,6 +44,7 @@ public  class CreateEmployee {
         }
         catch (Exception e){
             logger.error("Could not parse to char in array: " + Arrays.toString(arr));
+            validData=false;
         }
 
         //dates
@@ -54,11 +57,12 @@ public  class CreateEmployee {
         } catch (Exception e) { // Here
             logger.error("Date formatted correctly, is the date in mm/dd/yyyy?");
             logger.error(e.getMessage());
+            validData=false;
         }
 
-
-
-
-        return new Employee(id, prefix, fName, initial, lName, gender, mail, dob, employmentDate, salary);
+        if (validData) {
+            return new Employee(id, prefix, fName, initial, lName, gender, mail, dob, employmentDate, salary);
+        }
+        else return null;
     }
 }
