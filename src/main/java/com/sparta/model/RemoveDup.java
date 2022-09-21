@@ -18,12 +18,20 @@ public class RemoveDup {
                 System.out.println(emp.getFirstName() + " " + emp.getLastName() + " " +emp.getEmployeeID());
                 newEmp.add(emp);
             }
-//            if (Collections.frequency(mainList, emp) > 1) {
-//                System.out.println(emp.getFirstName() + " " + emp.getLastName() + " " +emp.getEmployeeID());
-//                duplicates.add(emp);
-//                mainList.remove(emp);
-//            }
+            else {
+                duplicates.add(emp);
+            }
         }
+
+        RemoveDup dup = new RemoveDup();
+        dup.duplicatesList(duplicates);
         return newEmp;
     }
+
+    public void duplicatesList(List<Employee> dupes){
+        System.out.println("\n"+"\n" + "THESE ARE THE DUPLICATES");
+        for (Employee e : dupes) System.out.println(e.getFirstName() + " " + e.getLastName()+ " "+e.getEmployeeID());
+    }
+
+
 }
