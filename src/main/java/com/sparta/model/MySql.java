@@ -24,7 +24,7 @@ public class MySql {
     private void loadCreds() {
         Properties props = new Properties();
         try {
-            props.load(new FileReader("dbcreds.properties"));
+            props.load(new FileReader("db.properties"));
             this.url = props.getProperty("url");
             this.username = props.getProperty("username");
             this.password = props.getProperty("password");

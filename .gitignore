@@ -1,4 +1,4 @@
 /.idea
 /target
 /resources/logFile.log
-src/main/resources/dbcreds.properties
+/src/main/resources/db.properties
