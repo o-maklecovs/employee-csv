@@ -1,4 +1,4 @@
-package com.sparta;
+package com.sparta.controller;
 
 import com.sparta.view.DisplayManager;
 

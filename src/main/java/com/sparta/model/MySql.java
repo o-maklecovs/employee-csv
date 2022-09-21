@@ -1,9 +1,6 @@
 package com.sparta.model;
 
-import com.sparta.Employee;
-
 import java.sql.*;
-import java.util.List;
 
 // must implement Db interface
 public class MySql {
