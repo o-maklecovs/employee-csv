@@ -15,16 +15,16 @@ public class MySql {
     private String username;
     private String password;
 
-    public MySql(String url, String username, String password) {
-        this.url = url;
-        this.username = username;
-        this.password = password;
-    }
+//    public MySql(String url, String username, String password) {
+//        this.url = url;
+//        this.username = username;
+//        this.password = password;
+//    }
 
     private void loadCreds() {
         Properties props = new Properties();
         try {
-            props.load(new FileReader("db.properties"));
+            props.load(new FileReader("src/main/resources/db.properties"));
             this.url = props.getProperty("url");
             this.username = props.getProperty("username");
             this.password = props.getProperty("password");
