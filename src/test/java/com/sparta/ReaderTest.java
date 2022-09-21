@@ -1,7 +1,11 @@
 package com.sparta;
 
 import com.sparta.controller.Reader;
+import com.sparta.model.Employee;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class ReaderTest {
 
@@ -12,7 +16,7 @@ class ReaderTest {
         int actualResult;
         int expectedResult = 10000;
         actualResult = Reader.readNIO("src/main/resources/EmployeeRecords1.csv").size();
-        Assertions.assertEquals(expectedResult,actualResult);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -22,25 +26,24 @@ class ReaderTest {
         int actualResult;
         int expectedResult = 10000;
         actualResult = Reader.readNIO("src/main/resources/EmployeeRecords2.csv").size();
-        Assertions.assertEquals(expectedResult,actualResult);
+        Assertions.assertEquals(expectedResult, actualResult);
     }
 
     @Test
     @Tag("EmployeeRecords1")
-    @DisplayName("Test prefixes")
+    @DisplayName("Test any different prefixes")
     void prefixTypeTest() {
 
-        int totalEmp = Reader.readNIO("src/main/resources/EmployeeRecords1.csv").size();
         String[] prefixes = {"Mrs.", "Mr.", "Ms.", "Dr.", "Hon.", "Prof.", "Drs."};
-
-        for (int i = 0; i < totalEmp; i++) {
-
-            //if ((employee = (Reader.readNIO("src/main/resources/EmployeeRecords1.csv").get(i)) == ) {
-
-            }
-
+        List<String> employeePrefixes = new ArrayList<>();
+        for (String s : prefixes) {
+            employeePrefixes.add(s);
         }
 
-
+        List<Employee> employees = Reader.readNIO("src/main/resources/EmployeeRecords1.csv");
+        for (Employee e : employees) {
+            Assertions.assertTrue(employeePrefixes.toString().contains(e.getPrefix()));
+        }
+    }
 
 }
