@@ -1,5 +1,6 @@
-package com.sparta;
+package com.sparta.model;
 
+import com.sparta.controller.Starter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

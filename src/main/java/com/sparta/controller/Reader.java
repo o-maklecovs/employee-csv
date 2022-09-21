@@ -1,5 +1,7 @@
-package com.sparta;
+package com.sparta.controller;
 
+import com.sparta.model.CreateEmployee;
+import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
