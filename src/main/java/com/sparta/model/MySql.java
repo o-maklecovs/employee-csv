@@ -29,10 +29,11 @@ public class MySql {
             try {
                 props.load(new FileReader("src/main/resources/db.properties"));
                 conn = DriverManager.getConnection(
-                        props.getProperty("url"),
-                        props.getProperty("username"),
-                        props.getProperty("password")
+                        props.getProperty("mysql.url"),
+                        props.getProperty("mysql.username"),
+                        props.getProperty("mysql.password")
                 );
+
             } catch (IOException e) {
                 logger.fatal(e.getMessage() + " could not get database parameters");
             } catch (SQLException e) {
@@ -92,5 +93,26 @@ public class MySql {
         }
     }
 
-//    public Employee getEmployeeById(int id) { }
+    public Employee getEmployeeById(int id) {
+
+        Employee result;
+        try {
+            PreparedStatement queryCreate = conn.prepareStatement("SELECT * FROM employees WHERE id = ?");
+            queryCreate.setInt(1, id);
+            ResultSet rs = queryCreate.executeQuery();
+
+            rs.next();
+
+       result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
+                 rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10)
+            );
+
+
+            conn.setAutoCommit(false);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+
+    }
 }
