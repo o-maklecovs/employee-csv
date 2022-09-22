@@ -1,5 +1,6 @@
 package com.sparta.view;
 
+import com.sparta.model.CleanData;
 import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -86,6 +87,16 @@ public class DisplayManager {
                     e.getFirstName()    + " | " +
                     e.getLastName());
         }
+    }
+
+    public void printBadData(){
+
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Duplicates: ");
+        printResultsFromList(CleanData.getDuplicates());
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Corrupted csv lines: ");
+        for (String line: CleanData.getCorrupted()){System.out.println(line);}
 
     }
 }

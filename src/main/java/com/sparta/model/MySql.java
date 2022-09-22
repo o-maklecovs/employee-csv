@@ -44,6 +44,7 @@ public class MySql {
     }
 
     public void insertAll(List<Employee> employees) {
+
         logger.trace("Starting insertAll method");
         try {
             PreparedStatement queryDrop = conn.prepareStatement("DROP TABLE IF EXISTS employees");
@@ -75,6 +76,11 @@ public class MySql {
             queryDrop.executeUpdate();
             queryCreate.executeUpdate();
             for (Employee e : employees) {
+                if (CleanData.employeeNullCheck(e)){
+                    // If null
+                    System.out.println("Null object");
+                    continue;
+                }
                 queryInsert.setInt(1, e.getEmployeeID());
                 queryInsert.setString(2, e.getPrefix());
                 queryInsert.setString(3, e.getFirstName());

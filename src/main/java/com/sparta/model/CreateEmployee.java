@@ -63,7 +63,10 @@ public  class CreateEmployee {
 
         if (validData) {
             return new Employee(id, prefix, fName, initial, lName, gender, mail, dob, employmentDate, salary);
+        } else {
+            CleanData.corruptedLine(line);
+            System.out.println("Null value");
+            return null;
         }
-        else return null;
     }
 }
