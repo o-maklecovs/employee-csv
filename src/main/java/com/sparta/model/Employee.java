@@ -1,9 +1,14 @@
 package com.sparta.model;
 
+import com.sparta.controller.Starter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Date;
 import java.util.Objects;
 
 public class Employee {
+    public static Logger logger= LogManager.getLogger(Starter.class);
 
     private int employeeID;
     private String prefix;
@@ -18,6 +23,8 @@ public class Employee {
     private int salary;
 
     public Employee(int employeeID, String prefix, String firstName, char middleInitial, String lastName, char gender, String mail, java.util.Date dob, java.util.Date employmentDate, int salary) {
+
+
         this.employeeID = employeeID;
         this.prefix = prefix;
         this.firstName = firstName;

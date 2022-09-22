@@ -40,12 +40,12 @@ public class DisplayManager {
             try {
                 validInt = true;
                 input = scan.nextInt();
-//                logger.info("Custom validation.....");
+                logger.info("Custom validation.....");
                 if (!validateInput(input, choices)){
                     throw new InputMismatchException("Choice outside of accepted values");
                 }
             } catch (InputMismatchException e){
-//                logger.error(e.getMessage(), e);
+                logger.error(e.getMessage(), e);
                 scan.next();
                 validInt = false;
                 printChoices(choices);
@@ -59,12 +59,12 @@ public class DisplayManager {
 
         for (int choice : choices){
             if (choice == input){
-//                logger.info("Input valid");
+                logger.info("Input valid");
                 return true;
             }
         }
         printChoices(choices);
-//        logger.info("Invalid");
+        logger.info("Invalid");
         return false;
     }
 

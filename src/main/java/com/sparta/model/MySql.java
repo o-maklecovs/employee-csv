@@ -1,5 +1,9 @@
 package com.sparta.model;
 
+import com.sparta.controller.Starter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.FileReader;
 import java.util.Properties;
@@ -8,6 +12,8 @@ import java.sql.*;
 
 // must implement Db interface
 public class MySql {
+    public static Logger logger= LogManager.getLogger(Starter.class);
+
 
     private String url;
     private String username;
@@ -18,6 +24,7 @@ public class MySql {
     }
 
     private void loadCreds() {
+        logger.trace("Starting loadCreds method");
         Properties props = new Properties();
         try {
             props.load(new FileReader("src/main/resources/db.properties"));
@@ -25,12 +32,12 @@ public class MySql {
             this.username = props.getProperty("username");
             this.password = props.getProperty("password");
         } catch (IOException e) {
-            // log
-            e.printStackTrace();
+            logger.fatal(e.getMessage()+"  could not get database parameters");//might be error instead
         }
     }
 
     public void insertAll(List<Employee> employees) {
+        logger.trace("Starting insertAll method");
         try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password)) {
             PreparedStatement queryDrop = conn.prepareStatement("DROP TABLE IF EXISTS employees");
             PreparedStatement queryCreate = conn.prepareStatement("CREATE TABLE employees (" +
@@ -75,22 +82,21 @@ public class MySql {
             }
             conn.commit();
         } catch (SQLException e) {
-            // log
-            e.printStackTrace();
+            logger.error(e.getMessage());
         }
     }
 
 //    public Employee getEmployee(int id) { }
 
     public void getAll() {
+        logger.trace("starting getAll method");
         try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password)) {
             PreparedStatement query = conn.prepareStatement("SELECT * FROM actor");
             ResultSet res = query.executeQuery();
             while (res.next())
                 System.out.println(res.getString("first_name") + " " + res.getString("last_name"));
         } catch (SQLException e) {
-            // log
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }
