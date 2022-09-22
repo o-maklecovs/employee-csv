@@ -22,7 +22,7 @@ public class RemoveDup {
         for (Employee emp:mainList) {
             try {
                 if (Collections.frequency(newEmp, emp) < 1) {
-                    System.out.println(emp.getFirstName() + " " + emp.getLastName() + " " + emp.getEmployeeID());
+                    //System.out.println(emp.getFirstName() + " " + emp.getLastName() + " " + emp.getEmployeeID());
                     newEmp.add(emp);
                 } else {
                     duplicates.add(emp);
