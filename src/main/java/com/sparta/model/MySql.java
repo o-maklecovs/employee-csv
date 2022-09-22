@@ -12,33 +12,39 @@ import java.sql.*;
 
 // must implement Db interface
 public class MySql {
+
+    private static MySql instance = null;
+
+    private static Connection conn = null;
+
     public static Logger logger= LogManager.getLogger(Starter.class);
 
+    private MySql() { }
 
-    private String url;
-    private String username;
-    private String password;
-
-    public MySql() {
-        this.loadCreds();
-    }
-
-    private void loadCreds() {
-        logger.trace("Starting loadCreds method");
-        Properties props = new Properties();
-        try {
-            props.load(new FileReader("src/main/resources/db.properties"));
-            this.url = props.getProperty("url");
-            this.username = props.getProperty("username");
-            this.password = props.getProperty("password");
-        } catch (IOException e) {
-            logger.fatal(e.getMessage()+"  could not get database parameters");//might be error instead
+    public static MySql getInstance() {
+        if (instance == null)
+            instance = new MySql();
+        if (conn == null) {
+            Properties props = new Properties();
+            try {
+                props.load(new FileReader("src/main/resources/db.properties"));
+                conn = DriverManager.getConnection(
+                        props.getProperty("url"),
+                        props.getProperty("username"),
+                        props.getProperty("password")
+                );
+            } catch (IOException e) {
+                logger.fatal(e.getMessage() + " could not get database parameters");
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+            }
         }
+        return instance;
     }
 
     public void insertAll(List<Employee> employees) {
         logger.trace("Starting insertAll method");
-        try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password)) {
+        try {
             PreparedStatement queryDrop = conn.prepareStatement("DROP TABLE IF EXISTS employees");
             PreparedStatement queryCreate = conn.prepareStatement("CREATE TABLE employees (" +
                     "id INT NOT NULL, " +
@@ -86,17 +92,5 @@ public class MySql {
         }
     }
 
-//    public Employee getEmployee(int id) { }
-
-    public void getAll() {
-        logger.trace("starting getAll method");
-        try (Connection conn = DriverManager.getConnection(this.url, this.username, this.password)) {
-            PreparedStatement query = conn.prepareStatement("SELECT * FROM actor");
-            ResultSet res = query.executeQuery();
-            while (res.next())
-                System.out.println(res.getString("first_name") + " " + res.getString("last_name"));
-        } catch (SQLException e) {
-            logger.error(e);
-        }
-    }
+//    public Employee getEmployeeById(int id) { }
 }
