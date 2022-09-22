@@ -1,5 +1,6 @@
 package com.sparta.view;
 
+import com.sparta.controller.Starter;
 import com.sparta.model.CleanData;
 import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
@@ -17,21 +18,23 @@ public class DisplayManager {
         System.out.println("--------------Employee Database Manager--------------");
         System.out.println("""
                 Chose option to run:\s
-                1. Example options\s
-                2. Insert\s
-                3. Read\s
-                4. Update\s
-                5. Delete\s
+                1. Run program
                 -----------------------------------------------------""");
+    }
 
-        int choice = getChoice(new int[]{1,2,3,4,5});
-
-        // controller(choice)
+    // Displays choice for showing bad data
+    public void askSecondary(){
+        System.out.println("""
+                            -----------------------------------------------------
+                            Chose option to run
+                            1. Run again
+                            2. Display duplicates and Corrupted lines
+                            """);
     }
 
 
     // Gets an input of list of numbered options to be passed to controller class
-    int getChoice(int[] choices){
+    public int getChoice(int[] choices){
 
         Scanner scan = new Scanner(System.in);
         int input = 0;
