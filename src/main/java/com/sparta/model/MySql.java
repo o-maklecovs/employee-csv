@@ -1,6 +1,7 @@
 package com.sparta.model;
 
 import com.sparta.controller.Starter;
+import com.sparta.view.GetUserID;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -99,24 +100,40 @@ public class MySql {
         }
     }
 
-    public Employee getEmployeeById(int id) {
-
-        Employee result;
+    public Employee getEmployeeById() {
+        logger.trace("Starting get employee method");
+        int id = GetUserID.getUserID();
+        Employee result = null;
         try {
             PreparedStatement queryCreate = conn.prepareStatement("SELECT * FROM employees WHERE id = ?");
             queryCreate.setInt(1, id);
             ResultSet rs = queryCreate.executeQuery();
 
             rs.next();
+            boolean validid = false;
+           while (!validid){
+               try {
 
-       result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
-                 rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10)
-            );
+                   result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
+                           rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10));
+                           validid = true;
+
+               }catch (SQLException e){
+                   validid = false;
+                   System.out.println("Employee id not found");
+                   id = GetUserID.getUserID();
+                   throw new RuntimeException(e);
+               }
+
+           }
+
 
 
             conn.setAutoCommit(false);
         } catch (SQLException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
+
         }
         return result;
 

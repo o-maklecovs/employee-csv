@@ -29,6 +29,7 @@ public class DisplayManager {
                             Chose option to run
                             1. Run again
                             2. Display duplicates and Corrupted lines
+                            3. Search for employee ID
                             """);
     }
 
@@ -96,10 +97,24 @@ public class DisplayManager {
 
         System.out.println("-----------------------------------------------------");
         System.out.println("Duplicates: ");
+       // long start = System.nanoTime();
         printResultsFromList(CleanData.getDuplicates());
+       // long finish = System.nanoTime();
+       // long timeElapsed = finish - start;
+     //   System.out.println("total time-"+timeElapsed+" Nanoseconds");
         System.out.println("-----------------------------------------------------");
         System.out.println("Corrupted csv lines: ");
         for (String line: CleanData.getCorrupted()){System.out.println(line);}
 
     }
+
+    public void printEmployeeID(Employee e){
+        System.out.println("-----------------------------------------------------");
+        System.out.println(
+                e.getEmployeeID()   + " | " +
+                e.getPrefix()       + " | " +
+                e.getFirstName()    + " | " +
+                e.getLastName());
+    }
+
 }

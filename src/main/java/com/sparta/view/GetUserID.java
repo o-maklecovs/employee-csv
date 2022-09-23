@@ -9,11 +9,12 @@ public class GetUserID {
     public static Logger logger= LogManager.getLogger(Starter.class);
 
     public static int getUserID(){
+        logger.trace("In the USER ID class");
         Scanner myScan=new Scanner(System.in);
         boolean validData=false;
         int out=0;
 
-        System.out.println("Enter User ID");
+        System.out.println("Enter Employee ID");
 
         while(!validData){
             try {out= myScan.nextInt(); validData=true;}
