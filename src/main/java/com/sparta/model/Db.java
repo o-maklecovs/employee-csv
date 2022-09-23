@@ -1,10 +1,11 @@
 package com.sparta.model;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface Db {
 
-    public void insertAll(List<Employee> employees);
+    void insertAll(List<Employee> employees, Connection conn);
 
-    public Employee getEmployee(int id);
+    Employee getEmployeeById(int id);
 }
