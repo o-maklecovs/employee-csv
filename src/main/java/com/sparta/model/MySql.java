@@ -137,8 +137,10 @@ public class MySql implements Db {
 
     // Uses member connection
     public Employee getEmployeeById(int id) {
-        Employee result;
+        boolean validID=true;
+        Employee result=null;
         try {
+            Thread.sleep(1000);
             PreparedStatement queryCreate = conn.prepareStatement("SELECT * FROM employees WHERE id = ?");
             queryCreate.setInt(1, id);
             ResultSet rs = queryCreate.executeQuery();
@@ -146,9 +148,16 @@ public class MySql implements Db {
             result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
                  rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10));
             conn.setAutoCommit(false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(result.getFirstName());
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e);
+            validID=false;
         }
-        return result;
+        if (validID) {
+            return result;
+        } else {
+            return null;
+        }
+
     }
 }

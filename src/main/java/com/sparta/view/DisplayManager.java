@@ -105,13 +105,16 @@ public class DisplayManager {
 
     }
 
-    public void printEmployeeID(Employee e){
-        System.out.println("-----------------------------------------------------");
-        System.out.println(
-                e.getEmployeeID()   + " | " +
-                e.getPrefix()       + " | " +
-                e.getFirstName()    + " | " +
-                e.getLastName());
+    public void printEmployeeID(Employee e) {
+        if (e == null) {
+            System.out.println("ID could not be found");
+        } else {
+            System.out.println("-----------------------------------------------------");
+            System.out.println(
+                    e.getEmployeeID() + " | " +
+                            e.getPrefix() + " | " +
+                            e.getFirstName() + " | " +
+                            e.getLastName());
+        }
     }
-
 }

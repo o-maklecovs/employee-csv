@@ -29,7 +29,7 @@ public class Starter {
         switch (choice) {
             case 1 -> dbManager.migrateEmps(CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecordsLarge.csv")));
             case 2 -> display.printBadData(); // For later
-            case 3 -> display.printEmployeeID(dbManager.getEmployeeById());
+            case 3 -> display.printEmployeeID(dbManager.getEmployeeById(GetUserID.getUserID()));
 
 
         }
