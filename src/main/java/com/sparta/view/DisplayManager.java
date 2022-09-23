@@ -21,7 +21,6 @@ public class DisplayManager {
                 1. Run program
                 -----------------------------------------------------""");
     }
-
     // Displays choice for showing bad data
     public void askSecondary(){
         System.out.println("""
@@ -31,8 +30,6 @@ public class DisplayManager {
                             2. Display duplicates and Corrupted lines
                             """);
     }
-
-
     // Gets an input of list of numbered options to be passed to controller class
     public int getChoice(int[] choices){
 

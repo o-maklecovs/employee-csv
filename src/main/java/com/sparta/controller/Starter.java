@@ -15,6 +15,8 @@ public class Starter {
     public static void start() {
         logger.info("starting.");
 
+        dbManager.createTable();
+
         display.intro();
         parseChoice(display.getChoice(new int[]{1}));
         display.askSecondary();
@@ -24,9 +26,7 @@ public class Starter {
 
     public static void parseChoice(int choice){
         switch (choice) {
-            case 1 -> dbManager.insertAll( // Insert
-                    CleanData.duplicates( // Remove dupes
-                            Reader.readNIO("src/main/resources/EmployeeRecords1.csv")));
+            case 1 -> dbManager.migrateEmps(CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecordsLarge.csv")));
             case 2 -> display.printBadData(); // For later
         }
     }

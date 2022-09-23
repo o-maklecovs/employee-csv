@@ -13,7 +13,6 @@ public class CleanData {
 
     // Dupes and corrupted lists and getters
     private static ArrayList<String> corrupted = new ArrayList<>();
-
     private static List<Employee> duplicates = new ArrayList<>();
 
     public static ArrayList<String> getCorrupted() {
@@ -22,7 +21,6 @@ public class CleanData {
     public static List<Employee> getDuplicates() {
         return duplicates;
     }
-
 
     public static List<Employee> duplicates(List<Employee> mainList){
         logger.info("Removing duplicates");
@@ -34,7 +32,6 @@ public class CleanData {
         for (Employee emp:mainList) {
             try {
                 if (Collections.frequency(newEmp, emp) < 1) {
-//                    System.out.println(emp.getFirstName() + " " + emp.getLastName() + " " + emp.getEmployeeID());
                     newEmp.add(emp);
                 } else {
                     duplicates.add(emp);
