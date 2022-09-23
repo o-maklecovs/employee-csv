@@ -47,7 +47,6 @@ public class CleanData {
         duplicatesList(duplicates);
         return newEmp;
     }
-
     public static void duplicatesList(List<Employee> dupes){duplicates.addAll(dupes);}
 
     public static void corruptedLine(String line){corrupted.add(line);}

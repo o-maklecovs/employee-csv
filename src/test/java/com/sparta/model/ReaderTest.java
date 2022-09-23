@@ -1,7 +1,6 @@
-package com.sparta;
+package com.sparta.model;
 
 import com.sparta.controller.Reader;
-import com.sparta.model.Employee;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -36,8 +35,8 @@ class ReaderTest {
 
         String[] prefixes = {"Mrs.", "Mr.", "Ms.", "Dr.", "Hon.", "Prof.", "Drs."};
         List<String> employeePrefixes = new ArrayList<>();
-        for (String s : prefixes) {
-            employeePrefixes.add(s);
+        for (String p : prefixes) {
+            employeePrefixes.add(p);
         }
 
         List<Employee> employees = Reader.readNIO("src/main/resources/EmployeeRecords1.csv");
@@ -45,5 +44,35 @@ class ReaderTest {
             Assertions.assertTrue(employeePrefixes.toString().contains(e.getPrefix()));
         }
     }
+
+    @Test
+    @Tag("EmployeeRecords2")
+    @DisplayName("Invalid gender type check")
+    void genderTest() {
+        List<Employee> employees = CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecords2.csv"));
+        for (Employee e : employees) {
+           // System.out.println(e.getGender());
+            if (e.getGender() == 'F') Assertions.assertTrue(true);
+            else if (e.getGender() == 'M') Assertions.assertTrue(true);
+            else if (e.getGender() == 'X') Assertions.assertTrue(true);
+            else Assertions.assertTrue(false);
+        }
+    }
+
+    @Test
+    @Tag("EmployeeRecords1")
+    @DisplayName("Invalid gender type check")
+    void genderTest1() {
+        List<Employee> employees = CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
+        for (Employee e : employees) {
+            // System.out.println(e.getGender());
+            System.out.println(e.getFirstName());
+//            if (e.getGender() == 'F') Assertions.assertTrue(true);
+//            else if (e.getGender() == 'M') Assertions.assertTrue(true);
+//            else Assertions.assertTrue(false);
+        }
+    }
+
+
 
 }
