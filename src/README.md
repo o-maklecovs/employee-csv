@@ -23,5 +23,33 @@ for (Object line : Files.lines(Path.of(fname)).toArray())
 We use a boolean to ignore the first (heading) line of the file.
 
 
+## Cleaning the Data
+We have once class for handling duplicates and corrupted data, CleanData.
+This contains two lists ``` ArrayList<String> corrupted ``` for storing imparseable or corrupted data, 
+and ```List<Employee> duplicates``` for storing duplicates. 
+<br/>
+Methods ```public static void duplicatesList(List<Employee> dupes)``` 
+and ```public static void corruptedLine(String line)``` are used to populate these Lists.
+<br/>
+
+``` corrupted ``` is populated from CreateEmployee class, via 
+```corruptedLine``` method. 
+<br/>
+We have a ```public static List<Employee> removeDuplicates(List<Employee> mainList)``` method,
+which returns a List with all of the duplicates removed. It also populates the ```List<Employee> duplicates``` via the ```corruptedLine``` method.
+
+## Testing
+
+
+## Timing
+The ```insertAll``` method is being timed in different configurations of the program.
+This is done via System.nanoTime().
+<br/>
+For single threaded program:
+2298806133 nanoseconds
+<br/>
+For multi-threaded program (4 threads):
+3484584200 nanoseconds
+
 
 
