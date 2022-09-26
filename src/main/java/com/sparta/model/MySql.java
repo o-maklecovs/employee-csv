@@ -56,17 +56,18 @@ public class MySql implements Db {
         Runnable thread3 = new ThreadConnection(instance, q3);
         Runnable thread4 = new ThreadConnection(instance, q4);
 
+        long start = System.nanoTime();
         long s = System.nanoTime();
         System.out.println("Started: " + s);
         pool.execute(thread1);
         pool.execute(thread2);
         pool.execute(thread3);
         pool.execute(thread4);
+        long end = System.nanoTime() - start;
+//        System.out.println(end);
         long f = System.nanoTime();
         System.out.println("Finished: " + f);
         System.out.println("Total time: " + (f-s));
-
-
 
         pool.shutdown();
     }
@@ -129,7 +130,7 @@ public class MySql implements Db {
             for (Employee e : employees) {
                 if (CleanData.employeeNullCheck(e)){
                     // If null
-                    System.out.println("Null object");
+                    logger.trace("Null object");
                     continue;
                 }
                 queryInsert.setInt(1, e.getEmployeeID());

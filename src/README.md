@@ -13,12 +13,17 @@ We have a static createEmp method in CreateEmployee class, which accepts a strin
 </br> 
 It currently uses java.util.Date for dates. This might later change to java.sql.Date
 </br> 
-If createEmp method cannot cast a line to the required type, it will set it to a null for Object child classes, to -1 for ints, and to '_' for chars.
+The default values of the parameters in createEmp are null for Object child classes, -1 for ints, and '_' for chars,
+these values are changed once we are able to parse the input string.
+<br/>
+Anytime createEmp is unnable to parse, it returns null and adds the string it was unable to parse calls ```duplicatesList(List<Employee> dupes)``` to add the String to the list of corrupted data.
 ### Reader
 Uses the passed filename to access the CSV file, and creates an array with each line occupying one cell of the array.
-We iterate over this array
+We use lambdas to add al
 ```java
-for (Object line : Files.lines(Path.of(fname)).toArray())
+Files.lines(Path.of(fname)).skip(1)
+        .forEach(e -> employees.add(CreateEmployee.createEmp(e)));
+
 ```
 We use a boolean to ignore the first (heading) line of the file.
 
