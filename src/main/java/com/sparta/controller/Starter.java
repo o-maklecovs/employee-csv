@@ -14,7 +14,6 @@ public class Starter {
     public static DisplayManager display = new DisplayManager();
     private static String fileName = null;
 
-    private static boolean start = true;
     public static String getFileName() {
         return fileName;
     }
@@ -34,9 +33,9 @@ public class Starter {
 
         // Initial choice of file for searching, then users can choose to run again with another file
         intro();
-        while(start){
-            runStageOne();
+        while(true){
             runStageTwo();
+            runStageOne();
         }
     }
 
@@ -65,9 +64,7 @@ public class Starter {
                     case 1 -> runStageOne();
                     case 2 -> display.printBadData();
                     case 3 -> runIdSearch();
-                    case 4 -> {
-                        logger.info("Exiting program");
-                        start = false;
+                    case 4 -> {logger.info("Exiting program");; System.exit(0);
                     }
                 }
         }
