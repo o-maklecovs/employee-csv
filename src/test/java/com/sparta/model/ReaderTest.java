@@ -49,7 +49,7 @@ class ReaderTest {
     @Tag("EmployeeRecords2")
     @DisplayName("Invalid gender type check")
     void genderTest() {
-        List<Employee> employees = CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecords2.csv"));
+        List<Employee> employees = CleanData.removeDuplicates(Reader.readNIO("src/main/resources/EmployeeRecords2.csv"));
         for (Employee e : employees) {
            // System.out.println(e.getGender());
             if (e.getGender() == 'F') Assertions.assertTrue(true);
@@ -63,7 +63,7 @@ class ReaderTest {
     @Tag("EmployeeRecords1")
     @DisplayName("Invalid gender type check")
     void genderTest1() {
-        List<Employee> employees = CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
+        List<Employee> employees = CleanData.removeDuplicates(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
         for (Employee e : employees) {
             // System.out.println(e.getGender());
             System.out.println(e.getFirstName());
@@ -72,13 +72,5 @@ class ReaderTest {
 //            else Assertions.assertTrue(false);
         }
     }
-
-    @Test
-    @DisplayName("Test threads")
-    void testThreads(){
-
-    }
-
-
 
 }
