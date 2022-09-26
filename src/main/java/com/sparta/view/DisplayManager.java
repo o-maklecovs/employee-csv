@@ -1,6 +1,5 @@
 package com.sparta.view;
 
-import com.sparta.controller.Starter;
 import com.sparta.model.CleanData;
 import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
@@ -13,22 +12,41 @@ public class DisplayManager {
     public static Logger logger = LogManager.getLogger(DisplayManager.class); // Logger
 
     // Intro example to be edited later
-    public void intro(){
+    public void stageOne(){
 
+
+        // Stage One
         System.out.println("--------------Employee Database Manager--------------");
         System.out.println("""
                 Chose option to run:\s
-                1. Run program
+                1. Choose a file to run
+                2. Find employee by ID
                 -----------------------------------------------------""");
     }
+    public void displayFiles(){
+        System.out.println("""
+                            -----------------------------------------------------
+                            Chose file to run
+                            1. EmployeeRecords1.csv
+                            2. EmployeeRecords2.csv
+                            3. EmployeeRecordsLarge.csv
+                            """);
+    }
+    public void displaySearchById(){
+        System.out.println("""
+                            -----------------------------------------------------
+                            Enter an Employee ID to search:
+                            """);
+    }
     // Displays choice for showing bad data
-    public void askSecondary(){
+    public void stageTwo(){
         System.out.println("""
                             -----------------------------------------------------
                             Chose option to run
-                            1. Run again
+                            1. Choose a file ro run
                             2. Display duplicates and Corrupted lines
                             3. Search for employee ID
+                            4. Exit program
                             """);
     }
     // Gets an input of list of numbered options to be passed to controller class
@@ -94,11 +112,11 @@ public class DisplayManager {
 
         System.out.println("-----------------------------------------------------");
         System.out.println("Duplicates: ");
-       // long start = System.nanoTime();
+        // long start = System.nanoTime();
         printResultsFromList(CleanData.getDuplicates());
-       // long finish = System.nanoTime();
-       // long timeElapsed = finish - start;
-     //   System.out.println("total time-"+timeElapsed+" Nanoseconds");
+        // long finish = System.nanoTime();
+        // long timeElapsed = finish - start;
+        // System.out.println("total time-"+timeElapsed+" Nanoseconds");
         System.out.println("-----------------------------------------------------");
         System.out.println("Corrupted csv lines: ");
         for (String line: CleanData.getCorrupted()){System.out.println(line);}
