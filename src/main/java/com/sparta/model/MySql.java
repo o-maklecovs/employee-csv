@@ -37,6 +37,9 @@ public class MySql implements Db {
 
     // Use of threads
     public void migrateEmps(List<Employee> employees){
+
+        createTable();
+
         int len= employees.size();
 
         List<Employee> q1 = employees.subList(0,len/4);
@@ -53,10 +56,17 @@ public class MySql implements Db {
         Runnable thread3 = new ThreadConnection(instance, q3);
         Runnable thread4 = new ThreadConnection(instance, q4);
 
+        long s = System.nanoTime();
+        System.out.println("Started: " + s);
         pool.execute(thread1);
         pool.execute(thread2);
         pool.execute(thread3);
         pool.execute(thread4);
+        long f = System.nanoTime();
+        System.out.println("Finished: " + f);
+        System.out.println("Total time: " + (f-s));
+
+
 
         pool.shutdown();
     }

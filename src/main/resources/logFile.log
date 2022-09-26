@@ -1,2 +1,1 @@
-[ERROR] 2022-09-26 14:14:53.508 [main] Starter - Date formatted correctly, is the date in mm/dd/yyyy?
-[ERROR] 2022-09-26 14:14:53.512 [main] Starter - Unparseable date: ""
+[ERROR] 2022-09-26 14:27:30.009 [main] Starter - java.sql.SQLException: Illegal operation on empty result set.
