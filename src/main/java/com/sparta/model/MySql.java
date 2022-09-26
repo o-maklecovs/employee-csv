@@ -48,10 +48,13 @@ public class MySql implements Db {
         Runnable thread3 = new ThreadConnection(instance, q3);
         Runnable thread4 = new ThreadConnection(instance, q4);
 
+        long start = System.nanoTime();
         pool.execute(thread1);
         pool.execute(thread2);
         pool.execute(thread3);
         pool.execute(thread4);
+        long end = System.nanoTime() - start;
+//        System.out.println(end);
 
         pool.shutdown();
     }
