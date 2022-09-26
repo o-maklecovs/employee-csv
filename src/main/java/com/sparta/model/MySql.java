@@ -14,6 +14,11 @@ import java.util.concurrent.Executors;
 
 public class MySql implements Db {
 
+
+
+    static int num;//number of threads
+    static Connection[] conns=new Connection[num];
+
     private static Connection conn = null;
 
     private static MySql instance = null;

@@ -28,7 +28,7 @@ public  class CreateEmployee {
             id = Integer.parseInt(arr[0]);
             salary = Integer.parseInt(arr[9]);
         }
-        catch (Exception e) {logger.error("Could not parse to int in array: "+ Arrays.toString(arr)); validData=false;}
+        catch (Exception e) {logger.warn("Could not parse to int in array: "+ Arrays.toString(arr)); validData=false;}
 
         //Strings
         String prefix = arr[1];
@@ -44,7 +44,7 @@ public  class CreateEmployee {
             gender = arr[5].charAt(0);
         }
         catch (Exception e){
-            logger.error("Could not parse to char in array: " + Arrays.toString(arr));
+            logger.warn("Could not parse to char in array: " + Arrays.toString(arr));
             validData=false;
         }
 
@@ -56,8 +56,8 @@ public  class CreateEmployee {
 //            dob = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(arr[7]); // Error line (With cast)
             employmentDate = new SimpleDateFormat("MM/dd/yyyy").parse(arr[8]);
         } catch (Exception e) { // Here
-            logger.error("Date formatted correctly, is the date in mm/dd/yyyy?");
-            logger.error(e.getMessage());
+            logger.warn("Date formatted incorrectly, is the date in mm/dd/yyyy?");
+            logger.warn(e.getMessage());
             validData=false;
         }
 
@@ -65,7 +65,7 @@ public  class CreateEmployee {
             return new Employee(id, prefix, fName, initial, lName, gender, mail, dob, employmentDate, salary);
         } else {
             CleanData.corruptedLine(line);
-            System.out.println("Null value");
+            logger.warn("Null value");
             return null;
         }
     }
