@@ -53,7 +53,6 @@ public  class CreateEmployee {
         java.util.Date employmentDate = null;
         try {
             dob = new SimpleDateFormat("MM/dd/yyyy").parse(arr[7]);
-//            dob = (Date) new SimpleDateFormat("MM/dd/yyyy").parse(arr[7]); // Error line (With cast)
             employmentDate = new SimpleDateFormat("MM/dd/yyyy").parse(arr[8]);
         } catch (Exception e) { // Here
             logger.warn("Date formatted incorrectly, is the date in mm/dd/yyyy?");

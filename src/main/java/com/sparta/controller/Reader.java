@@ -1,5 +1,6 @@
 package com.sparta.controller;
 
+import com.sparta.model.CleanData;
 import com.sparta.model.CreateEmployee;
 import com.sparta.model.Employee;
 import org.apache.logging.log4j.LogManager;
@@ -17,6 +18,7 @@ public class Reader {
     public static Logger logger= LogManager.getLogger(Starter.class);
 
     public static List<Employee> readNIO(String fname) {
+        CleanData.makeNull();
         logger.trace("starting a readNIO method");
         List<Employee> employees = new ArrayList<>();
         try {
