@@ -66,7 +66,7 @@ public class Starter {
                     case 2 -> display.printBadData();
                     case 3 -> runIdSearch();
                     case 4 -> {
-                        System.out.println("Exiting program...");
+                        logger.info("Exiting program");
                         start = false;
                     }
                 }

@@ -109,7 +109,6 @@ public class DisplayManager {
     }
 
     public void printBadData(){
-
         System.out.println("-----------------------------------------------------");
         System.out.println("Duplicates: ");
         // long start = System.nanoTime();

@@ -6,6 +6,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.FileReader;
+import java.nio.file.Files;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.List;
 import java.sql.*;
@@ -89,6 +91,7 @@ public class MySql implements Db {
 
     public void createTable() {
         try {
+
             PreparedStatement queryDrop = conn.prepareStatement("DROP TABLE IF EXISTS employees");
             PreparedStatement queryCreate = conn.prepareStatement("CREATE TABLE employees (" +
                     "id INT NOT NULL, " +
@@ -111,7 +114,6 @@ public class MySql implements Db {
 
     // Uses connections in threads
     public void insertAll(List<Employee> employees, Connection conn) {
-
         logger.trace("Starting insertAll method");
         try {
             PreparedStatement queryInsert = conn.prepareStatement("INSERT INTO employees (" +
@@ -127,24 +129,45 @@ public class MySql implements Db {
                     "salary) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             conn.setAutoCommit(false);
-            for (Employee e : employees) {
-                if (CleanData.employeeNullCheck(e)){
-                    // If null
-                    logger.trace("Null object");
-                    continue;
+
+
+            employees.stream().filter(Objects::nonNull).forEach(e -> {
+                try {
+                    queryInsert.setInt(1, e.getEmployeeID());
+                    queryInsert.setString(2, e.getPrefix());
+                    queryInsert.setString(3, e.getFirstName());
+                    queryInsert.setString(4, Character.toString(e.getMiddleInitial()));
+                    queryInsert.setString(5, e.getLastName());
+                    queryInsert.setString(6, Character.toString(e.getGender()));
+                    queryInsert.setString(7, e.getMail());
+                    queryInsert.setDate(8, new java.sql.Date(e.getDob().getTime()));
+                    queryInsert.setDate(9, new java.sql.Date(e.getEmploymentDate().getTime()));
+                    queryInsert.setInt(10, e.getSalary());
+                    queryInsert.executeUpdate();
+                } catch (SQLException ex) {
+                    logger.error(e);
                 }
-                queryInsert.setInt(1, e.getEmployeeID());
-                queryInsert.setString(2, e.getPrefix());
-                queryInsert.setString(3, e.getFirstName());
-                queryInsert.setString(4, Character.toString(e.getMiddleInitial()));
-                queryInsert.setString(5, e.getLastName());
-                queryInsert.setString(6, Character.toString(e.getGender()));
-                queryInsert.setString(7, e.getMail());
-                queryInsert.setDate(8, new java.sql.Date(e.getDob().getTime()));
-                queryInsert.setDate(9, new java.sql.Date(e.getEmploymentDate().getTime()));
-                queryInsert.setInt(10, e.getSalary());
-                queryInsert.executeUpdate();
             }
+            );
+
+//            for (Employee e : employees) {
+//                if (CleanData.employeeNullCheck(e)){
+//                    // If null
+//                    logger.trace("Null object");
+//                    continue;
+//                }
+//                queryInsert.setInt(1, e.getEmployeeID());
+//                queryInsert.setString(2, e.getPrefix());
+//                queryInsert.setString(3, e.getFirstName());
+//                queryInsert.setString(4, Character.toString(e.getMiddleInitial()));
+//                queryInsert.setString(5, e.getLastName());
+//                queryInsert.setString(6, Character.toString(e.getGender()));
+//                queryInsert.setString(7, e.getMail());
+//                queryInsert.setDate(8, new java.sql.Date(e.getDob().getTime()));
+//                queryInsert.setDate(9, new java.sql.Date(e.getEmploymentDate().getTime()));
+//                queryInsert.setInt(10, e.getSalary());
+//                queryInsert.executeUpdate();
+//            }
             conn.commit();
         } catch (SQLException e) {
             logger.error(e.getMessage());

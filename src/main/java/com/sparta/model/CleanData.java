@@ -15,6 +15,8 @@ public class CleanData {
     private static ArrayList<String> corrupted = new ArrayList<>();
     private static List<Employee> duplicates = new ArrayList<>();
 
+    public static void makeNull(){corrupted=new ArrayList<>(); duplicates=new ArrayList<>();}
+
     public static ArrayList<String> getCorrupted() {
         return corrupted;
     }
