@@ -43,7 +43,7 @@ public class Starter {
     public static synchronized void  intro(){
         display.displayFiles();
         setFileName(display.getChoice(new int[]{1, 2, 3}));
-        dbManager.migrateEmps(CleanData.duplicates(Reader.readNIO(fileName)));
+        dbManager.migrateEmps(CleanData.removeDuplicates(Reader.readNIO(fileName)));
     }
 
 
