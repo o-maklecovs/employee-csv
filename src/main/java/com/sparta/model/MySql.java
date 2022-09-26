@@ -130,7 +130,7 @@ public class MySql implements Db {
             for (Employee e : employees) {
                 if (CleanData.employeeNullCheck(e)){
                     // If null
-                    System.out.println("Null object");
+                    logger.trace("Null object");
                     continue;
                 }
                 queryInsert.setInt(1, e.getEmployeeID());

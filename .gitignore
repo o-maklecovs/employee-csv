@@ -2,3 +2,4 @@
 /target
 /src/main/resources/logFile.log
 /src/main/resources/db.properties
+/src/main/resources/logFile.log
