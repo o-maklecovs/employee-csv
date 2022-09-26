@@ -22,12 +22,11 @@ public class Starter {
         parseChoice(display.getChoice(new int[]{1}));
         display.askSecondary();
         parseChoice(display.getChoice(new int[]{1,2,3}));
-
     }
 
     public static void parseChoice(int choice){
         switch (choice) {
-            case 1 -> dbManager.migrateEmps(CleanData.duplicates(Reader.readNIO("src/main/resources/EmployeeRecordsLarge.csv")));
+            case 1 -> dbManager.migrateEmps(CleanData.removeDuplicates(Reader.readNIO("src/main/resources/EmployeeRecordsLarge.csv")));
             case 2 -> display.printBadData(); // For later
             case 3 -> display.printEmployeeID(dbManager.getEmployeeById(GetUserID.getUserID()));
 

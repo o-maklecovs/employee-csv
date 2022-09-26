@@ -22,7 +22,7 @@ public class CleanData {
         return duplicates;
     }
 
-    public static List<Employee> duplicates(List<Employee> mainList){
+    public static List<Employee> removeDuplicates(List<Employee> mainList){
         logger.info("Removing duplicates");
 
         ArrayList<Employee> duplicates = new ArrayList<>();
