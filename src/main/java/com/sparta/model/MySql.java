@@ -6,7 +6,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.FileReader;
-import java.nio.file.Files;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.List;
@@ -149,25 +148,6 @@ public class MySql implements Db {
                 }
             }
             );
-
-//            for (Employee e : employees) {
-//                if (CleanData.employeeNullCheck(e)){
-//                    // If null
-//                    logger.trace("Null object");
-//                    continue;
-//                }
-//                queryInsert.setInt(1, e.getEmployeeID());
-//                queryInsert.setString(2, e.getPrefix());
-//                queryInsert.setString(3, e.getFirstName());
-//                queryInsert.setString(4, Character.toString(e.getMiddleInitial()));
-//                queryInsert.setString(5, e.getLastName());
-//                queryInsert.setString(6, Character.toString(e.getGender()));
-//                queryInsert.setString(7, e.getMail());
-//                queryInsert.setDate(8, new java.sql.Date(e.getDob().getTime()));
-//                queryInsert.setDate(9, new java.sql.Date(e.getEmploymentDate().getTime()));
-//                queryInsert.setInt(10, e.getSalary());
-//                queryInsert.executeUpdate();
-//            }
             conn.commit();
         } catch (SQLException e) {
             logger.error(e.getMessage());
