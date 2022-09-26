@@ -21,7 +21,6 @@ public class DisplayManager {
                 1. Run program
                 -----------------------------------------------------""");
     }
-
     // Displays choice for showing bad data
     public void askSecondary(){
         System.out.println("""
@@ -29,10 +28,9 @@ public class DisplayManager {
                             Chose option to run
                             1. Run again
                             2. Display duplicates and Corrupted lines
+                            3. Search for employee ID
                             """);
     }
-
-
     // Gets an input of list of numbered options to be passed to controller class
     public int getChoice(int[] choices){
 
@@ -96,10 +94,27 @@ public class DisplayManager {
 
         System.out.println("-----------------------------------------------------");
         System.out.println("Duplicates: ");
+       // long start = System.nanoTime();
         printResultsFromList(CleanData.getDuplicates());
+       // long finish = System.nanoTime();
+       // long timeElapsed = finish - start;
+     //   System.out.println("total time-"+timeElapsed+" Nanoseconds");
         System.out.println("-----------------------------------------------------");
         System.out.println("Corrupted csv lines: ");
         for (String line: CleanData.getCorrupted()){System.out.println(line);}
 
+    }
+
+    public void printEmployeeID(Employee e) {
+        if (e == null) {
+            System.out.println("ID could not be found");
+        } else {
+            System.out.println("-----------------------------------------------------");
+            System.out.println(
+                    e.getEmployeeID() + " | " +
+                            e.getPrefix() + " | " +
+                            e.getFirstName() + " | " +
+                            e.getLastName());
+        }
     }
 }

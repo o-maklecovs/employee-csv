@@ -9,13 +9,14 @@ import java.io.FileReader;
 import java.util.Properties;
 import java.util.List;
 import java.sql.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-// must implement Db interface
-public class MySql {
-
-    private static MySql instance = null;
+public class MySql implements Db {
 
     private static Connection conn = null;
+
+    private static MySql instance = null;
 
     public static Logger logger= LogManager.getLogger(Starter.class);
 
@@ -24,28 +25,53 @@ public class MySql {
     public static MySql getInstance() {
         if (instance == null)
             instance = new MySql();
-        if (conn == null) {
-            Properties props = new Properties();
-            try {
-                props.load(new FileReader("src/main/resources/db.properties"));
-                conn = DriverManager.getConnection(
-                        props.getProperty("mysql.url"),
-                        props.getProperty("mysql.username"),
-                        props.getProperty("mysql.password")
-                );
-
-            } catch (IOException e) {
-                logger.fatal(e.getMessage() + " could not get database parameters");
-            } catch (SQLException e) {
-                logger.error(e.getMessage());
-            }
-        }
+        if (conn == null)
+            conn = getConnection();
         return instance;
     }
 
-    public void insertAll(List<Employee> employees) {
+    // Use of threads
+    public void migrateEmps(List<Employee> employees){
+        int len= employees.size();
 
-        logger.trace("Starting insertAll method");
+        List<Employee> q1 = employees.subList(0,len/4);
+        List<Employee> q2 = employees.subList(len/4,len/2);
+        List<Employee> q3 = employees.subList(len/2,3*len/4);
+        List<Employee> q4 = employees.subList(3*len/4,len);
+
+        employees.subList(0, 1000);
+
+        ExecutorService pool = Executors.newFixedThreadPool(4);
+
+        Runnable thread1 = new ThreadConnection(instance, q1);
+        Runnable thread2 = new ThreadConnection(instance, q2);
+        Runnable thread3 = new ThreadConnection(instance, q3);
+        Runnable thread4 = new ThreadConnection(instance, q4);
+
+        pool.execute(thread1);
+        pool.execute(thread2);
+        pool.execute(thread3);
+        pool.execute(thread4);
+
+        pool.shutdown();
+    }
+
+    public static Connection getConnection() {
+        Properties props = new Properties();
+        Connection conn = null;
+        try {
+                props.load(new FileReader("src/main/resources/db.properties"));
+                conn = DriverManager.getConnection( // Here
+                        props.getProperty("mysql.url"),
+                        props.getProperty("mysql.username"),
+                        props.getProperty("mysql.password"));
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+    public void createTable() {
         try {
             PreparedStatement queryDrop = conn.prepareStatement("DROP TABLE IF EXISTS employees");
             PreparedStatement queryCreate = conn.prepareStatement("CREATE TABLE employees (" +
@@ -60,6 +86,18 @@ public class MySql {
                     "employment_date DATE, " +
                     "salary INT, " +
                     "PRIMARY KEY (id))");
+            queryDrop.executeUpdate();
+            queryCreate.executeUpdate();
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    // Uses connections in threads
+    public void insertAll(List<Employee> employees, Connection conn) {
+
+        logger.trace("Starting insertAll method");
+        try {
             PreparedStatement queryInsert = conn.prepareStatement("INSERT INTO employees (" +
                     "id, " +
                     "prefix, " +
@@ -73,8 +111,6 @@ public class MySql {
                     "salary) " +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             conn.setAutoCommit(false);
-            queryDrop.executeUpdate();
-            queryCreate.executeUpdate();
             for (Employee e : employees) {
                 if (CleanData.employeeNullCheck(e)){
                     // If null
@@ -99,26 +135,29 @@ public class MySql {
         }
     }
 
+    // Uses member connection
     public Employee getEmployeeById(int id) {
-
-        Employee result;
+        boolean validID=true;
+        Employee result=null;
         try {
+            Thread.sleep(1000);
             PreparedStatement queryCreate = conn.prepareStatement("SELECT * FROM employees WHERE id = ?");
             queryCreate.setInt(1, id);
             ResultSet rs = queryCreate.executeQuery();
-
             rs.next();
-
-       result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
-                 rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10)
-            );
-
-
+            result  = new Employee(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4).charAt(0),rs.getString(5),
+                 rs.getString(6).charAt(0),rs.getString(7),rs.getDate(8),rs.getDate(9),rs.getInt(10));
             conn.setAutoCommit(false);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(result.getFirstName());
+        } catch (SQLException | InterruptedException e) {
+            logger.error(e);
+            validID=false;
         }
-        return result;
+        if (validID) {
+            return result;
+        } else {
+            return null;
+        }
 
     }
 }
