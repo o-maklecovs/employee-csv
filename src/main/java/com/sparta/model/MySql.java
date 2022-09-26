@@ -158,6 +158,5 @@ public class MySql implements Db {
         } else {
             return null;
         }
-
     }
 }

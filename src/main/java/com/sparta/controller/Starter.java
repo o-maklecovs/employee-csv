@@ -31,11 +31,21 @@ public class Starter {
         logger.info("starting.");
 
         dbManager.createTable();
+
+        // Initial choice of file for searching, then users can choose to run again with another file
+        intro();
         while(start){
             runStageOne();
             runStageTwo();
         }
     }
+
+    public static synchronized void  intro(){
+        display.displayFiles();
+        setFileName(display.getChoice(new int[]{1, 2, 3}));
+        dbManager.migrateEmps(CleanData.duplicates(Reader.readNIO(fileName)));
+    }
+
 
     public static void parseChoiceStage(int choice, int stage){
 
