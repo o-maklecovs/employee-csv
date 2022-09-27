@@ -14,7 +14,7 @@ class CreateEmployeeTest {
 
 
     @Test
-    @DisplayName("Testing employee creating method with valid inputs")
+    @DisplayName("Testing  method with valid inputs")
     void createEmpTest() throws ParseException {
         int employeeID = getJavaFaker().number().numberBetween(100_000, 1_000_000);
         String prefix = "Mr.";

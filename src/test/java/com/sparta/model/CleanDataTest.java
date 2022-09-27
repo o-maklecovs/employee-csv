@@ -1,8 +1,6 @@
 package com.sparta.model;
 
 import com.sparta.controller.Reader;
-import com.sparta.view.DisplayManager;
-import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
@@ -11,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static com.sparta.model.CleanData.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CleanDataTest {
 
@@ -48,9 +45,14 @@ class CleanDataTest {
 
 
     @Test
-    @DisplayName("")
-    void testDuplicates() {
-        List<Employee> totalCleaned = CleanData.removeDuplicates(Reader.readNIO("src/main/resources/EmployeeRecords1.csv"));
+    @Tag("EmployeeRecordsLarge")
+    @DisplayName("Test for duplicates & unique employees total equals 65499")
+    void testTotalRecordLarge() {
+
+        List<Employee> totalCleaned = CleanData.removeDuplicates(Reader.readNIO("src/main/resources/EmployeeRecordsLarge.csv"));
+        int dups = getDuplicates().size();
+        int expectedResult = 65499;
+        Assertions.assertTrue((totalCleaned.size()+dups) == expectedResult);
 
     }
 

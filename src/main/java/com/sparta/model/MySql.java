@@ -26,7 +26,7 @@ public class MySql implements Db {
 
     public static Logger logger= LogManager.getLogger(Starter.class);
 
-    private MySql() { }
+    protected MySql() { }
 
     public static MySql getInstance() {
         if (instance == null)

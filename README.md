@@ -61,6 +61,29 @@ It has a number of methods that print out choices, results, input prompts and er
 
 ```Starter``` class is the controller of this application, it calls ```DisplayManager```'s and model's (```MySql```, ```CleanData```, etc.) methods and contains a ```start``` method, which is a starting point of the application and is called in the ```main``` method.
 
+## Testing
+
+```Unit testing``` approach has been used in this project. ```Junit Jupiter``` dependency is added to do our test. For result comparison, ```Assertions``` class has been used to check expected & actual result.
+> * ``` i.e. Assertions.assertEquals(employeeID, newEmp.getEmployeeID());```
+```java
+<dependency>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.9.0</version>
+</dependency>
+```
+Also, ```Java Faker``` library dependency added into Maven to create data for testing purposes.
+Basically, some methods from different classes are tested on different cvs files to check methods are working properly as intended.
+```java
+
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+
+
 ## Timing
 
 The ```insertAll``` method is being timed in different configurations of the program. This is done via System.nanoTime().

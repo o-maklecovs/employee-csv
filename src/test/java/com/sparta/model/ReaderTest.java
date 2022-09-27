@@ -59,9 +59,6 @@ class ReaderTest {
         }
     }
 
-    /**
-     * Having an issue
-     */
     @Test
     @Tag("EmployeeRecords1")
     @DisplayName("Invalid gender type check")
@@ -70,9 +67,9 @@ class ReaderTest {
         for (Employee e : employees) {
             // System.out.println(e.getGender());
             System.out.println(e.getFirstName());
-//            if (e.getGender() == 'F') Assertions.assertTrue(true);
-//            else if (e.getGender() == 'M') Assertions.assertTrue(true);
-//            else Assertions.assertTrue(false);
+            if (e.getGender() == 'F') Assertions.assertTrue(true);
+            else if (e.getGender() == 'M') Assertions.assertTrue(true);
+            else Assertions.assertTrue(false);
         }
     }
 
